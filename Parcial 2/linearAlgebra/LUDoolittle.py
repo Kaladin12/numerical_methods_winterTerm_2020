@@ -1,3 +1,5 @@
+#Hecho por Elian Javier Cruz Esquivel
+
 from numpy import *
 import math
 
@@ -5,7 +7,7 @@ import math
 A = matrix("25 15 -5 -10;15 10 1 -7;-5 1 21 4;-10 -7 4 18")
 b = matrix("0; 10; 76; 60")
 
-n = int(input("Size: "))
+n = 4
 L = zeros((n,n))
 U = zeros((n,n))
 
@@ -20,6 +22,7 @@ def LU():
             if (j<=i):
                 L.itemset((i,j),A.item((i,j)))
                 for k in range(j):
+                    print( L.item((i,k)),U.item((k,j)))
                     L.itemset((i,j),L.item((i,j))-L.item((i,k))*U.item((k,j)))
                 L.itemset((i,j),L.item((i,j))/U.item((j,j)))
 

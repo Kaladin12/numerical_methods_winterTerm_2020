@@ -5,7 +5,7 @@ import math
 A = matrix("1 1 1 0 0 0;0 -1 0 1 -1 0; 0 0 -1 0 0 1; 0 10 -10 0 -15 -5;0 0 0 0 1 -1;5 -10 0 -20 0 0")
 b = matrix("0; 0; 0; 0; 0; 200")
 
-n = int(input("Size: "))
+n = 6
 L = zeros((n,n))
 U = zeros((n,n))
 
@@ -13,15 +13,17 @@ def LU():
     for j in range(n):
         for i in range(n):
             if i <= j:
-                U.itemset((i,j),A.item((i,j)))
+                s = A.item((i,j))
                 for k in range(i):
-                    U.itemset((i,j),U.item((i,j))-L.item((i,k))*U.item((k,j)))
-            if (j<=i):
-                L.itemset((i,j),A.item((i,j)))
+                   s-=L.item((i,k))*U.item((k,j))
+                U.itemset((i,j), s)
+            if (j==i):
+                L.itemset((i,i), 1)
+            if (j<i):
+                s = A.item((i,j))
                 for k in range(j):
-                    L.itemset((i,j),L.item((i,j))-L.item((i,k))*U.item((k,j)))
-                #print(L.item((i,j)),U.item((j,j)), i, j)
-                L.itemset((i,j),L.item((i,j))/U.item((j,j)))
+                    s -= L.item((i,k))*U.item((k,j))
+                L.itemset((i,j),s/U.item((j,j)))
 
 def Lyb(): 
     y = [0 for _ in range(n)]
@@ -36,7 +38,6 @@ def Lyb():
         res = y[i]
         for j in range(n-k,n):
             res -= x[j]*U.item((i,j))
-            #print(x[j],U.item((i,j)))
         x[i] = res/U.item((i,i))
         k+=1
     print("y")
@@ -47,7 +48,6 @@ def Lyb():
     
 
 LU()
-#LU()
 print("L")
 print(L)
 print("U")
