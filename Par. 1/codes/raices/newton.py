@@ -1,14 +1,12 @@
 import math
 
-f = lambda x: math.e**x - math.sin(x)-x-2
-fp = lambda x : math.e**x -math.cos(x)-1
-X_2 = 2
-X_1 = -1
+f = lambda x: math.sin(x)/(x**2+1)
+fp = lambda x : (math.cos(x)+x**2*math.cos(x) - 2*x*math.sin(x))/(1+x**2)**2
+
 def newton(x_not, n):
     for i in range(n):
         x = x_not - (f(x_not)/fp(x_not))
         x_not = x
     return x
 
-print("Raíz 1",newton(X_1, 15))
-print("Raíz 2",newton(X_2, 15))
+print("Raíz 1",newton(0.5, 10))
